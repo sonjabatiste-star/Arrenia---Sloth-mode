@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3: Extra Practice &ndash; Build the Product</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .problem-display {
+    text-align:center; font-family: var(--font-display); font-size: 1.7rem; font-weight:700;
+    margin: 6px 0 6px; color: var(--bark);
+  }
+  .problem-hint { text-align:center; color:var(--bark-soft); font-size:0.85rem; margin-bottom: 22px; }
+  .fraction-slot { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .fraction-slot .slash { font-size:1.6rem; color: var(--bark-soft); }
+  .equation-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 3 &middot; Extra Practice</span>
+    <h1>🌿 Build the Product</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--golden-dark);">
+    <div class="game-instructions">
+      Drag two number tiles into the new numerator and denominator boxes to build the answer
+      (it's okay if it's not simplified yet). For division problems, the reciprocal has already been
+      flipped for you &mdash; just multiply straight across.
+    </div>
+
+    <div class="problem-display" id="problemLabel">2/3 &times; 3/4</div>
+    <p class="problem-hint">Multiply straight across: new numerator, then new denominator.</p>
+
+    <div class="equation-row">
+      <div class="fraction-slot">
+        <div class="drop-zone" id="zoneA" ondragover="allowDrop(event)" ondrop="dropTile(event,'zoneA')" onclick="clearZone('zoneA')">num</div>
+        <span class="slash">&mdash;</span>
+        <div class="drop-zone" id="zoneB" ondragover="allowDrop(event)" ondrop="dropTile(event,'zoneB')" onclick="clearZone('zoneB')">den</div>
+      </div>
+    </div>
+
+    <div class="vine-divider" style="margin:26px 0 12px;">🍊 Tiles</div>
+    <div class="drag-source-row" id="tileRow"></div>
+
+    <div class="game-controls">
+      <button class="btn btn-gold" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Problem</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const problems = [
+    { display: '2/3 &times; 3/4', hint: 'Multiply straight across: new numerator, then new denominator.', num: 6, den: 12 },
+    { display: '1/2 &times; 4/5', hint: 'Multiply straight across: new numerator, then new denominator.', num: 4, den: 10 },
+    { display: '3/5 &times; 2/3', hint: 'Multiply straight across: new numerator, then new denominator.', num: 6, den: 15 },
+    { display: '2/3 &divide; 1/4  →  2/3 &times; 4/1', hint: 'Reciprocal already flipped — now multiply straight across.', num: 8, den: 3 },
+    { display: '5/6 &divide; 2/3  →  5/6 &times; 3/2', hint: 'Reciprocal already flipped — now multiply straight across.', num: 15, den: 12 },
+    { display: '3/4 &divide; 1/2  →  3/4 &times; 2/1', hint: 'Reciprocal already flipped — now multiply straight across.', num: 6, den: 4 },
+  ];
+
+  let problem = null;
+  let zoneValues = { zoneA: null, zoneB: null };
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function newProblem() {
+    problem = problems[randInt(0, problems.length - 1)];
+    document.getElementById('problemLabel').innerHTML = problem.display;
+    document.getElementById('problemHint') || null;
+    document.querySelector('.problem-hint').textContent = problem.hint;
+
+    const tileSet = new Set([problem.num, problem.den]);
+    while (tileSet.size < 6) {
+      const decoy = randInt(1, 40);
+      if (decoy !== problem.num && decoy !== problem.den) tileSet.add(decoy);
+    }
+    const tiles = [...tileSet].sort(() => Math.random() - 0.5);
+
+    const tileRow = document.getElementById('tileRow');
+    tileRow.innerHTML = '';
+    tiles.forEach((val, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-item';
+      tile.textContent = val;
+      tile.draggable = true;
+      tile.id = 'tile-' + i;
+      tile.dataset.value = val;
+      tile.addEventListener('dragstart', dragStart);
+      tileRow.appendChild(tile);
+    });
+
+    zoneValues = { zoneA: null, zoneB: null };
+    ['zoneA', 'zoneB'].forEach((z, i) => {
+      const zone = document.getElementById(z);
+      zone.textContent = i === 0 ? 'num' : 'den';
+      zone.className = 'drop-zone';
+      delete zone.dataset.tileId;
+    });
+
+    document.getElementById('feedback').textContent = '';
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  }
+
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  }
+
+  function dropTile(e, zoneId) {
+    e.preventDefault();
+    const zone = document.getElementById(zoneId);
+    zone.classList.remove('drag-over');
+
+    const tileId = e.dataTransfer.getData('text/plain');
+    const tile = document.getElementById(tileId);
+    if (!tile || tile.classList.contains('placed')) return;
+
+    if (zone.dataset.tileId) {
+      const oldTile = document.getElementById(zone.dataset.tileId);
+      if (oldTile) oldTile.classList.remove('placed');
+    }
+
+    zone.textContent = tile.dataset.value;
+    zone.dataset.tileId = tile.id;
+    zone.classList.add('filled');
+    zone.classList.remove('zone-correct', 'zone-incorrect');
+    tile.classList.add('placed');
+
+    zoneValues[zoneId] = Number(tile.dataset.value);
+  }
+
+  function clearZone(zoneId) {
+    const zone = document.getElementById(zoneId);
+    if (zone.dataset.tileId) {
+      const tile = document.getElementById(zone.dataset.tileId);
+      if (tile) tile.classList.remove('placed');
+    }
+    zone.textContent = zoneId === 'zoneA' ? 'num' : 'den';
+    zone.className = 'drop-zone';
+    delete zone.dataset.tileId;
+    zoneValues[zoneId] = null;
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    if (zoneValues.zoneA === null || zoneValues.zoneB === null) {
+      feedback.textContent = '🦥 Drag a tile into both boxes first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    const zoneA = document.getElementById('zoneA');
+    const zoneB = document.getElementById('zoneB');
+
+    if (zoneValues.zoneA === problem.num && zoneValues.zoneB === problem.den) {
+      zoneA.classList.add('zone-correct'); zoneB.classList.add('zone-correct');
+      zoneA.classList.remove('zone-incorrect'); zoneB.classList.remove('zone-incorrect');
+      feedback.textContent = `🎉 Correct! The product is ${problem.num}/${problem.den}.`;
+      feedback.style.color = 'var(--fern-dark)';
+    } else {
+      zoneA.classList.add('zone-incorrect'); zoneB.classList.add('zone-incorrect');
+      zoneA.classList.remove('zone-correct'); zoneB.classList.remove('zone-correct');
+      feedback.textContent = `🍊 Not quite — multiply straight across (numerator × numerator, denominator × denominator) and try again.`;
+      feedback.style.color = 'var(--burnt-clay-dark)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

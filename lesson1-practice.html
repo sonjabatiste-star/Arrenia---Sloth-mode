@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 1: Extra Practice &ndash; Factor Pair Match</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .target-display {
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin: 18px 0 26px; font-family: var(--font-display); font-size: 1.4rem; font-weight:700;
+  }
+  .target-box {
+    background: linear-gradient(135deg, var(--fern), var(--fern-dark));
+    color: var(--white); border-radius: 16px; padding: 14px 26px; font-size: 1.6rem;
+  }
+  .equation-row { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 1 &middot; Extra Practice</span>
+    <h1>🦥 Factor Pair Match</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--fern);">
+    <div class="game-instructions">
+      Drag two number tiles into the boxes so their product equals the target number. Not every tile is
+      a factor &mdash; read carefully! Use <strong>New Problem</strong> for a fresh target and
+      <strong>Check Answer</strong> when you're ready.
+    </div>
+
+    <div class="target-display">
+      Target: <span class="target-box" id="targetNum">36</span>
+    </div>
+
+    <div class="equation-row">
+      <div class="drop-zone" id="zoneA" ondragover="allowDrop(event)" ondrop="dropTile(event, 'zoneA')" onclick="clearZone('zoneA')">drop here</div>
+      <span style="font-size:1.6rem;">&times;</span>
+      <div class="drop-zone" id="zoneB" ondragover="allowDrop(event)" ondrop="dropTile(event, 'zoneB')" onclick="clearZone('zoneB')">drop here</div>
+      <span style="font-size:1.6rem;">=</span>
+      <span class="target-box" id="targetNum2" style="background:var(--marmalade);">36</span>
+    </div>
+
+    <div class="vine-divider" style="margin:24px 0 12px;">🍊 Tiles</div>
+    <div class="drag-source-row" id="tileRow"></div>
+
+    <div class="game-controls">
+      <button class="btn btn-fern" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Problem</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const problemBank = [24, 36, 45, 48, 60, 72, 84, 90];
+  let target = 0;
+  let zoneValues = { zoneA: null, zoneB: null };
+
+  function factorsOf(n) {
+    const f = [];
+    for (let i = 2; i <= n / 2; i++) if (n % i === 0) f.push(i);
+    return f;
+  }
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function newProblem() {
+    target = problemBank[randInt(0, problemBank.length - 1)];
+    document.getElementById('targetNum').textContent = target;
+    document.getElementById('targetNum2').textContent = target;
+
+    const facs = factorsOf(target);
+    const pairIndex = randInt(0, facs.length - 1);
+    const a = facs[pairIndex];
+    const b = target / a;
+
+    const tileSet = new Set([a, b]);
+    while (tileSet.size < 6) {
+      const decoy = randInt(2, 15);
+      if (decoy !== a && decoy !== b) tileSet.add(decoy);
+    }
+
+    const tiles = [...tileSet].sort(() => Math.random() - 0.5);
+
+    const tileRow = document.getElementById('tileRow');
+    tileRow.innerHTML = '';
+    tiles.forEach((val, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-item';
+      tile.textContent = val;
+      tile.draggable = true;
+      tile.id = 'tile-' + i;
+      tile.dataset.value = val;
+      tile.addEventListener('dragstart', dragStart);
+      tileRow.appendChild(tile);
+    });
+
+    zoneValues = { zoneA: null, zoneB: null };
+    ['zoneA', 'zoneB'].forEach(z => {
+      const zone = document.getElementById(z);
+      zone.textContent = 'drop here';
+      zone.className = 'drop-zone';
+      delete zone.dataset.tileId;
+    });
+
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'game-feedback';
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  }
+
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  }
+
+  function dropTile(e, zoneId) {
+    e.preventDefault();
+    const zone = document.getElementById(zoneId);
+    zone.classList.remove('drag-over');
+
+    const tileId = e.dataTransfer.getData('text/plain');
+    const tile = document.getElementById(tileId);
+    if (!tile || tile.classList.contains('placed')) return;
+
+    // If this zone already had a tile, un-place the old one
+    if (zone.dataset.tileId) {
+      const oldTile = document.getElementById(zone.dataset.tileId);
+      if (oldTile) oldTile.classList.remove('placed');
+    }
+
+    zone.textContent = tile.dataset.value;
+    zone.dataset.tileId = tile.id;
+    zone.classList.add('filled');
+    zone.classList.remove('zone-correct', 'zone-incorrect');
+    tile.classList.add('placed');
+
+    zoneValues[zoneId] = Number(tile.dataset.value);
+  }
+
+  function clearZone(zoneId) {
+    const zone = document.getElementById(zoneId);
+    if (zone.dataset.tileId) {
+      const tile = document.getElementById(zone.dataset.tileId);
+      if (tile) tile.classList.remove('placed');
+    }
+    zone.textContent = 'drop here';
+    zone.className = 'drop-zone';
+    delete zone.dataset.tileId;
+    zoneValues[zoneId] = null;
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    if (zoneValues.zoneA === null || zoneValues.zoneB === null) {
+      feedback.textContent = '🦥 Drag a tile into both boxes first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    const product = zoneValues.zoneA * zoneValues.zoneB;
+    const zoneA = document.getElementById('zoneA');
+    const zoneB = document.getElementById('zoneB');
+
+    if (product === target) {
+      zoneA.classList.add('zone-correct');
+      zoneB.classList.add('zone-correct');
+      zoneA.classList.remove('zone-incorrect');
+      zoneB.classList.remove('zone-incorrect');
+      feedback.textContent = `🎉 Correct! ${zoneValues.zoneA} × ${zoneValues.zoneB} = ${target}.`;
+      feedback.style.color = 'var(--fern-dark)';
+    } else {
+      zoneA.classList.add('zone-incorrect');
+      zoneB.classList.add('zone-incorrect');
+      zoneA.classList.remove('zone-correct');
+      zoneB.classList.remove('zone-correct');
+      feedback.textContent = `🍊 ${zoneValues.zoneA} × ${zoneValues.zoneB} = ${product}, not ${target}. Try different tiles!`;
+      feedback.style.color = 'var(--burnt-clay-dark)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

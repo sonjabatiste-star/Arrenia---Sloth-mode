@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4: Extra Practice &ndash; Place Value Chart</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .target-display {
+    text-align:center; font-family: var(--font-display); font-size: 1.9rem; font-weight:700;
+    color: var(--burnt-clay-dark); margin: 6px 0 24px;
+  }
+  .chart-row { display:flex; justify-content:center; align-items:flex-end; gap:6px; flex-wrap:wrap; margin-bottom: 10px; }
+  .chart-col { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .chart-col .col-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--bark-soft); text-align:center; max-width:64px; }
+  .decimal-dot { font-size: 2rem; padding-bottom: 4px; color: var(--bark); }
+  .place-zone { width: 56px; height: 56px; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 4 &middot; Extra Practice</span>
+    <h1>🌴 Place Value Chart</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--burnt-clay);">
+    <div class="game-instructions">
+      Drag each digit tile into the correct column to build the target number. Watch out for
+      decoy digits that don't belong in this number at all!
+    </div>
+
+    <div class="target-display">Build: <span id="targetNum">128.45</span></div>
+
+    <div class="chart-row" id="chartRow"></div>
+
+    <div class="vine-divider" style="margin:22px 0 12px;">🍊 Digit Tiles</div>
+    <div class="drag-source-row" id="tileRow"></div>
+
+    <div class="game-controls">
+      <button class="btn btn-clay" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Number</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const numbers = ['128.45', '356.72', '940.18', '275.63', '619.34', '483.97', '807.29', '542.16'];
+  const columns = [
+    { key: 'h', label: 'hundreds' }, { key: 't', label: 'tens' }, { key: 'o', label: 'ones' },
+    { key: 'dot', label: '' },
+    { key: 'ten', label: 'tenths' }, { key: 'hun', label: 'hundredths' },
+  ];
+
+  let targetDigits = {};
+  let zoneValues = {};
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function buildChart() {
+    const chartRow = document.getElementById('chartRow');
+    chartRow.innerHTML = '';
+    columns.forEach(col => {
+      if (col.key === 'dot') {
+        const dot = document.createElement('div');
+        dot.className = 'decimal-dot';
+        dot.textContent = '.';
+        chartRow.appendChild(dot);
+        return;
+      }
+      const wrap = document.createElement('div');
+      wrap.className = 'chart-col';
+      const zone = document.createElement('div');
+      zone.className = 'drop-zone place-zone';
+      zone.id = 'zone-' + col.key;
+      zone.textContent = '?';
+      zone.ondragover = allowDrop;
+      zone.ondrop = (e) => dropTile(e, col.key);
+      zone.onclick = () => clearZone(col.key);
+      const label = document.createElement('div');
+      label.className = 'col-label';
+      label.textContent = col.label;
+      wrap.appendChild(zone);
+      wrap.appendChild(label);
+      chartRow.appendChild(wrap);
+    });
+  }
+
+  function newProblem() {
+    const num = numbers[randInt(0, numbers.length - 1)];
+    document.getElementById('targetNum').textContent = num;
+
+    const [wholePart, decPart] = num.split('.');
+    const whole = wholePart.padStart(3, '0');
+    targetDigits = {
+      h: Number(whole[0]), t: Number(whole[1]), o: Number(whole[2]),
+      ten: Number(decPart[0]), hun: Number(decPart[1]),
+    };
+
+    buildChart();
+    zoneValues = { h: null, t: null, o: null, ten: null, hun: null };
+
+    const correctVals = Object.values(targetDigits);
+    const tileSet = [...correctVals];
+    while (tileSet.length < 8) {
+      const decoy = randInt(0, 9);
+      tileSet.push(decoy);
+    }
+    const tiles = tileSet.sort(() => Math.random() - 0.5);
+
+    const tileRow = document.getElementById('tileRow');
+    tileRow.innerHTML = '';
+    tiles.forEach((val, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-item';
+      tile.textContent = val;
+      tile.draggable = true;
+      tile.id = 'dtile-' + i;
+      tile.dataset.value = val;
+      tile.addEventListener('dragstart', dragStart);
+      tileRow.appendChild(tile);
+    });
+
+    document.getElementById('feedback').textContent = '';
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  }
+
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  }
+
+  function dropTile(e, key) {
+    e.preventDefault();
+    const zone = document.getElementById('zone-' + key);
+    zone.classList.remove('drag-over');
+
+    const tileId = e.dataTransfer.getData('text/plain');
+    const tile = document.getElementById(tileId);
+    if (!tile || tile.classList.contains('placed')) return;
+
+    if (zone.dataset.tileId) {
+      const oldTile = document.getElementById(zone.dataset.tileId);
+      if (oldTile) oldTile.classList.remove('placed');
+    }
+
+    zone.textContent = tile.dataset.value;
+    zone.dataset.tileId = tile.id;
+    zone.classList.add('filled');
+    zone.classList.remove('zone-correct', 'zone-incorrect');
+    tile.classList.add('placed');
+
+    zoneValues[key] = Number(tile.dataset.value);
+  }
+
+  function clearZone(key) {
+    const zone = document.getElementById('zone-' + key);
+    if (zone.dataset.tileId) {
+      const tile = document.getElementById(zone.dataset.tileId);
+      if (tile) tile.classList.remove('placed');
+    }
+    zone.textContent = '?';
+    zone.className = 'drop-zone place-zone';
+    delete zone.dataset.tileId;
+    zoneValues[key] = null;
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    const keys = ['h', 't', 'o', 'ten', 'hun'];
+    if (keys.some(k => zoneValues[k] === null)) {
+      feedback.textContent = '🦥 Fill in every column first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    let allCorrect = true;
+    keys.forEach(k => {
+      const zone = document.getElementById('zone-' + k);
+      if (zoneValues[k] === targetDigits[k]) {
+        zone.classList.add('zone-correct'); zone.classList.remove('zone-incorrect');
+      } else {
+        zone.classList.add('zone-incorrect'); zone.classList.remove('zone-correct');
+        allCorrect = false;
+      }
+    });
+    if (allCorrect) {
+      feedback.textContent = '🎉 Perfect place value!';
+      feedback.style.color = 'var(--fern-dark)';
+    } else {
+      feedback.textContent = '🍊 A few digits are in the wrong spot — check the column labels and try again.';
+      feedback.style.color = 'var(--burnt-clay-dark)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

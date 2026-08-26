@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4: Teach &ndash; Comparing &amp; Computing with Decimals</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .exit-list { padding-left: 1.1em; margin: 10px 0 0; }
+  .exit-list li { margin-bottom: 8px; font-weight: 600; }
+  .celebrate { text-align:center; }
+  .celebrate .big-emoji { font-size: 4rem; margin-bottom: 6px; }
+  .place-chart { display:flex; gap:4px; justify-content:center; margin: 14px 0; font-family: var(--font-mono); }
+  .place-chart .cell { background:var(--canopy-cream-2); border-radius:8px; padding:8px 12px; text-align:center; min-width:36px; }
+  .place-chart .cell .digit { font-size:1.2rem; font-weight:700; }
+  .place-chart .cell .label { font-size:0.62rem; color:var(--bark-soft); margin-top:2px; }
+  .place-chart .dot { display:flex; align-items:flex-end; font-size:1.4rem; padding-bottom:6px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+</div>
+
+<div class="slide-stage">
+  <div class="slide-card">
+
+    <div class="slide active" data-slide="1">
+      <span class="slide-eyebrow">Week 4 &middot; Module 1, Topic 3</span>
+      <h2 class="display">🌴 Mission: Command the Decimals</h2>
+      <p>This week you'll compare and order decimals (even negative ones), then multiply and divide
+      them with speed and precision.</p>
+      <div class="ask">🦥 Ask Arrenia: Which is bigger — 0.4 or 0.35? What makes it tricky to tell at a glance?</div>
+    </div>
+
+    <div class="slide" data-slide="2">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>Decimal Place Value</h2>
+      <p>Every digit's position tells you its value. Line up decimal points before comparing, and
+      "pad" shorter decimals with zeros so every number has the same number of decimal places.</p>
+      <div class="place-chart">
+        <div class="cell"><div class="digit">4</div><div class="label">ones</div></div>
+        <div class="dot">.</div>
+        <div class="cell"><div class="digit">0</div><div class="label">tenths</div></div>
+      </div>
+      <div class="place-chart">
+        <div class="cell"><div class="digit">4</div><div class="label">ones</div></div>
+        <div class="dot">.</div>
+        <div class="cell"><div class="digit">3</div><div class="label">tenths</div></div>
+        <div class="cell"><div class="digit">5</div><div class="label">hundredths</div></div>
+      </div>
+      <p>0.40 vs 0.35 &mdash; now it's easy: 40 hundredths beats 35 hundredths, so <strong>0.4 &gt; 0.35</strong>.</p>
+      <div class="ask">🦥 Ask Arrenia: Why doesn't adding a zero at the end of 0.4 (to make 0.40) change its value?</div>
+    </div>
+
+    <div class="slide" data-slide="3">
+      <span class="slide-eyebrow">Worked Example 1</span>
+      <h2>Order Rational Numbers, Including Negatives</h2>
+      <p>Order least to greatest: &minus;3.2, 1.05, &minus;3.08, 0.9</p>
+      <div class="example-box">
+        Negatives first — more negative is smaller: &minus;3.2 is less than &minus;3.08 (it's farther left on the line).<br>
+        Ordered: <strong>&minus;3.2, &minus;3.08, 0.9, 1.05</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why is &minus;3.2 less than &minus;3.08, even though 3.2 &gt; 3.08 without the negative signs?</div>
+    </div>
+
+    <div class="slide" data-slide="4">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>Multiplying Decimals</h2>
+      <p>Multiply as if there were no decimal points, then count total decimal places in both factors
+      to place the point in your answer.</p>
+      <div class="example-box">
+        3.4 &times; 0.6<br>
+        34 &times; 6 = 204<br>
+        3.4 has 1 decimal place, 0.6 has 1 decimal place → 2 total<br>
+        <strong>3.4 &times; 0.6 = 2.04</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Estimate 3.4 × 0.6 by rounding first (3 × 0.6 = 1.8) — does 2.04 seem reasonable?</div>
+    </div>
+
+    <div class="slide" data-slide="5">
+      <span class="slide-eyebrow">Worked Example 2</span>
+      <h2>Dividing Decimals</h2>
+      <p>To divide by a decimal, shift both decimal points right until the divisor is a whole number.</p>
+      <div class="example-box">
+        7.5 &divide; 0.25<br>
+        Shift both 2 places: 750 &divide; 25<br>
+        <strong>= 30</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why can we shift both decimal points the same number of places without changing the answer?</div>
+    </div>
+
+    <div class="slide" data-slide="6">
+      <span class="slide-eyebrow">Challenge</span>
+      <h2>Multi-Step Decimal Problem</h2>
+      <p>Orange juice costs $3.75 per gallon. You buy 2.4 gallons and pay with a $10 bill. How much change do you get?</p>
+      <div class="example-box alt">
+        3.75 &times; 2.4 = 9.00<br>
+        10.00 &minus; 9.00 = <strong>$1.00 change</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: How could you estimate this problem first to check that $1.00 makes sense?</div>
+    </div>
+
+    <div class="slide" data-slide="7">
+      <span class="slide-eyebrow">Standard Connection</span>
+      <h2>Why This Matters for STAAR</h2>
+      <div class="teks-tags" style="margin-bottom:14px;">
+        <span class="teks-tag">6.2C</span>
+        <span class="teks-tag">6.2D &mdash; Readiness</span>
+        <span class="teks-tag">6.3E &mdash; Readiness</span>
+        <span class="teks-tag">6.8D</span>
+      </div>
+      <p>Both <strong>6.2D</strong> (ordering rational numbers) and <strong>6.3E</strong> (operations with
+      rational numbers) are Readiness standards. Decimal computation shows up across nearly every
+      real-world STAAR word problem this year, so fluency here pays off everywhere.</p>
+    </div>
+
+    <div class="slide" data-slide="8">
+      <span class="slide-eyebrow">Exit Ticket</span>
+      <h2>Try These on Your Own</h2>
+      <ol class="exit-list">
+        <li>Order least to greatest: &minus;1.4, 0.6, &minus;1.25, 0.09</li>
+        <li>Multiply: 4.2 &times; 0.5</li>
+        <li>Divide: 6.4 &divide; 0.8</li>
+        <li>A sloth walks 0.3 km per hour. At that rate, how far does it walk in 2.5 hours?</li>
+      </ol>
+      <p style="margin-top:14px; color:var(--bark-soft); font-size:0.9rem;">No answers shown here &mdash;
+      head to Practice the Lesson to check your work!</p>
+    </div>
+
+    <div class="slide" data-slide="9">
+      <div class="celebrate">
+        <div class="big-emoji">🌴🦥</div>
+        <h2>You're a Decimal Detective!</h2>
+        <p>You can compare, order, multiply, and divide decimals with confidence. Head to
+        <strong>Practice the Lesson</strong> to earn your final badge for this module.</p>
+        <a class="btn btn-clay" href="lesson4.html">🍊 Go to Practice</a>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-outline btn-sm" id="backBtn">&larr; Back</button>
+      <span class="slide-counter" id="slideCounter">Slide 1 of 9</span>
+      <button class="btn btn-clay btn-sm" id="nextBtn">Next &rarr;</button>
+    </div>
+    <div class="slide-progress-dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+    document.getElementById('slideCounter').textContent = `Slide ${current} of ${total}`;
+    document.getElementById('backBtn').disabled = current === 1;
+    document.getElementById('nextBtn').textContent = current === total ? 'Done ✓' : 'Next →';
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < total) { current++; render(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (current > 1) { current--; render(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && current < total) { current++; render(); }
+    if (e.key === 'ArrowLeft' && current > 1) { current--; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>

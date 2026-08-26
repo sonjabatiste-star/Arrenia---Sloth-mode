@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 1: Teach &ndash; Distributive Property &amp; GCF/LCM</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .fact-pair { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+  .fact-pill { background:var(--white); border:2px solid var(--fern); border-radius:12px; padding:8px 14px; font-family:var(--font-mono); font-weight:700; color:var(--fern-dark); }
+  .exit-list { padding-left: 1.1em; margin: 10px 0 0; }
+  .exit-list li { margin-bottom: 8px; font-weight: 600; }
+  .celebrate { text-align:center; }
+  .celebrate .big-emoji { font-size: 4rem; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+</div>
+
+<div class="slide-stage">
+  <div class="slide-card">
+
+    <!-- Slide 1: Mission -->
+    <div class="slide active" data-slide="1">
+      <span class="slide-eyebrow">Week 1 &middot; Module 1, Topic 1</span>
+      <h2 class="display">🦥 Mission: Crack the Factor Code</h2>
+      <p>Every number is secretly built out of smaller pieces. This week you'll learn to break numbers
+      apart on purpose &mdash; with the <strong>distributive property</strong> &mdash; and find the pieces
+      two numbers share, using <strong>GCF</strong> (greatest common factor) and <strong>LCM</strong>
+      (least common multiple).</p>
+      <div class="ask">🦥 Ask Arrenia: If you had 24 orange slices and 36 crackers to split into identical
+      snack bags with nothing left over, what's the biggest number of bags you could make?</div>
+    </div>
+
+    <!-- Slide 2: Concept intro -->
+    <div class="slide" data-slide="2">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>The Distributive Property</h2>
+      <p>The distributive property says you can split a multiplication problem into smaller, friendlier
+      pieces and add the results:</p>
+      <div class="example-box">
+        <strong>a(b + c) = ab + ac</strong><br>
+        Picture a rectangle that's <em>a</em> tall and <em>(b + c)</em> wide. Slice it into two smaller
+        rectangles &mdash; one <em>a &times; b</em> and one <em>a &times; c</em> &mdash; and the total
+        area doesn't change.
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why does slicing the rectangle into pieces not change its total area?</div>
+    </div>
+
+    <!-- Slide 3: Worked example - distributive with area model -->
+    <div class="slide" data-slide="3">
+      <span class="slide-eyebrow">Worked Example 1</span>
+      <h2>Break Apart a Hard Multiplication</h2>
+      <p>Find <strong>6 &times; 47</strong> without a calculator, by rewriting 47 as a friendlier sum:</p>
+      <div class="example-box">
+        6 &times; 47 = 6 &times; (50 &minus; 3)<br>
+        = (6 &times; 50) &minus; (6 &times; 3)<br>
+        = 300 &minus; 18<br>
+        = <strong>282</strong>
+      </div>
+      <p>The same move works with addition: 6 &times; 47 = 6 &times; (40 + 7) = 240 + 42 = 282.</p>
+      <div class="ask">🦥 Ask Arrenia: Use the distributive property to find 8 &times; 98 two different ways.</div>
+    </div>
+
+    <!-- Slide 4: GCF -->
+    <div class="slide" data-slide="4">
+      <span class="slide-eyebrow">Worked Example 2</span>
+      <h2>Greatest Common Factor (GCF)</h2>
+      <p>The GCF of two numbers is the largest number that divides evenly into both. Prime factorization
+      is the fastest way for bigger numbers:</p>
+      <div class="example-box">
+        24 = 2 &times; 2 &times; 2 &times; 3<br>
+        36 = 2 &times; 2 &times; 3 &times; 3<br>
+        Shared factors: 2 &times; 2 &times; 3 = <strong>GCF(24, 36) = 12</strong>
+      </div>
+      <p>That means 24 crackers and 36 orange slices could be split into 12 identical snack bags,
+      each with 2 crackers and 3 slices.</p>
+      <div class="ask">🦥 Ask Arrenia: Can you rewrite 24 + 36 using the distributive property and the GCF,
+      like 12 &times; (2 + 3)?</div>
+    </div>
+
+    <!-- Slide 5: LCM -->
+    <div class="slide" data-slide="5">
+      <span class="slide-eyebrow">Worked Example 3</span>
+      <h2>Least Common Multiple (LCM)</h2>
+      <p>The LCM is the smallest number that both numbers divide into evenly &mdash; useful anytime
+      two repeating patterns need to "line up."</p>
+      <div class="example-box">
+        Multiples of 8: 8, 16, 24, 32, 40, 48...<br>
+        Multiples of 12: 12, 24, 36, 48...<br>
+        First shared multiple: <strong>LCM(8, 12) = 24</strong>
+      </div>
+      <div class="fact-pair">
+        <span class="fact-pill">GCF finds shared factors</span>
+        <span class="fact-pill">LCM finds shared multiples</span>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: A sloth blinks its left eye every 8 seconds and its right eye every
+      12 seconds. If it blinks both eyes at 0 seconds, when's the next time both eyes blink together?</div>
+    </div>
+
+    <!-- Slide 6: Real-world / harder example -->
+    <div class="slide" data-slide="6">
+      <span class="slide-eyebrow">Challenge</span>
+      <h2>Put It Together</h2>
+      <p>A garden club has 18 sunflower seed packets, 30 orange marigold packets, and 42 sloth-friendly
+      fern seedlings. They want the largest number of identical gift bags with none left over.</p>
+      <div class="example-box alt">
+        18 = 2 &times; 3&sup2;<br>
+        30 = 2 &times; 3 &times; 5<br>
+        42 = 2 &times; 3 &times; 7<br>
+        GCF(18, 30, 42) = 2 &times; 3 = <strong>6 gift bags</strong>
+      </div>
+      <p>Each bag gets 3 sunflower packets, 5 marigold packets, and 7 fern seedlings.</p>
+      <div class="ask">🦥 Ask Arrenia: How would the answer change if there were 43 fern seedlings instead of 42?</div>
+    </div>
+
+    <!-- Slide 7: TEKS connection -->
+    <div class="slide" data-slide="7">
+      <span class="slide-eyebrow">Standard Connection</span>
+      <h2>Why This Matters for STAAR</h2>
+      <div class="teks-tags" style="margin-bottom:14px;">
+        <span class="teks-tag">6.7D &mdash; Readiness</span>
+        <span class="teks-tag">6.8D</span>
+        <span class="teks-tag">6.7A</span>
+      </div>
+      <p><strong>6.7D</strong> (generating equivalent expressions using the distributive property) is a
+      Readiness standard, which means it's tested often and in depth &mdash; today's rectangle-slicing
+      trick is the visual foundation for that whole idea. GCF and LCM (6.8D) show up constantly in ratio,
+      fraction, and geometry problems all year.</p>
+    </div>
+
+    <!-- Slide 8: Exit ticket -->
+    <div class="slide" data-slide="8">
+      <span class="slide-eyebrow">Exit Ticket</span>
+      <h2>Try These on Your Own</h2>
+      <ol class="exit-list">
+        <li>Use the distributive property to rewrite 7 &times; 63 as a sum, then solve.</li>
+        <li>Find GCF(28, 42) using prime factorization.</li>
+        <li>Find LCM(9, 15).</li>
+        <li>Rewrite 45 + 60 as a product using the GCF, like GCF &times; (___ + ___).</li>
+      </ol>
+      <p style="margin-top:14px; color:var(--bark-soft); font-size:0.9rem;">No answers shown here &mdash;
+      head to Practice the Lesson to check your work!</p>
+    </div>
+
+    <!-- Slide 9: Celebration -->
+    <div class="slide" data-slide="9">
+      <div class="celebrate">
+        <div class="big-emoji">🦥🍊</div>
+        <h2>You've Got the Factor Code!</h2>
+        <p>You can now break numbers apart with the distributive property and find GCF and LCM like a pro.
+        Head to <strong>Practice the Lesson</strong> to earn your <strong>Factor Finder</strong> badge.</p>
+        <a class="btn btn-fern" href="lesson1.html">🍊 Go to Practice</a>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-outline btn-sm" id="backBtn">&larr; Back</button>
+      <span class="slide-counter" id="slideCounter">Slide 1 of 9</span>
+      <button class="btn btn-fern btn-sm" id="nextBtn">Next &rarr;</button>
+    </div>
+    <div class="slide-progress-dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+    document.getElementById('slideCounter').textContent = `Slide ${current} of ${total}`;
+    document.getElementById('backBtn').disabled = current === 1;
+    document.getElementById('nextBtn').textContent = current === total ? 'Done ✓' : 'Next →';
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < total) { current++; render(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (current > 1) { current--; render(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && current < total) { current++; render(); }
+    if (e.key === 'ArrowLeft' && current > 1) { current--; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>

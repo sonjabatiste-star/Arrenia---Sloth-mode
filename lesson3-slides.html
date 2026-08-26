@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3: Teach &ndash; Multiplying &amp; Dividing Fractions</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .exit-list { padding-left: 1.1em; margin: 10px 0 0; }
+  .exit-list li { margin-bottom: 8px; font-weight: 600; }
+  .celebrate { text-align:center; }
+  .celebrate .big-emoji { font-size: 4rem; margin-bottom: 6px; }
+  .grid-model { display:grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap:2px; width:180px; height:135px; margin: 14px auto; border:2px solid var(--bark); }
+  .grid-model div { background: var(--canopy-cream-2); }
+  .grid-model div.shaded { background: var(--golden-sloth); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+</div>
+
+<div class="slide-stage">
+  <div class="slide-card">
+
+    <div class="slide active" data-slide="1">
+      <span class="slide-eyebrow">Week 3 &middot; Module 1, Topic 1</span>
+      <h2 class="display">🌿 Mission: Multiply &amp; Divide Fractions Like a Pro</h2>
+      <p>This week you'll build speed and confidence multiplying and dividing fractions &mdash;
+      and understand <em>why</em> the shortcuts actually work, not just memorize them.</p>
+      <div class="ask">🦥 Ask Arrenia: What do you already remember about multiplying two fractions together?</div>
+    </div>
+
+    <div class="slide" data-slide="2">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>Multiplying Fractions</h2>
+      <p>Multiply straight across: numerator &times; numerator, denominator &times; denominator.</p>
+      <div class="example-box">
+        <strong>a/b &times; c/d = (a &times; c) / (b &times; d)</strong>
+      </div>
+      <p>A grid model shows why: shading 3/4 of the columns and 2/3 of the rows leaves an overlap
+      that's exactly 2/3 &times; 3/4 of the whole grid.</p>
+      <div class="grid-model" id="gridModel"></div>
+      <div class="ask">🦥 Ask Arrenia: In the grid, how many total squares are shaded twice (the overlap)?</div>
+    </div>
+
+    <div class="slide" data-slide="3">
+      <span class="slide-eyebrow">Worked Example 1</span>
+      <h2>Multiply Straight Across</h2>
+      <div class="example-box">
+        2/3 &times; 3/4 = (2 &times; 3) / (3 &times; 4) = 6/12 = <strong>1/2</strong>
+      </div>
+      <p>Notice 6/12 simplifies to 1/2 &mdash; always simplify your final answer.</p>
+      <div class="ask">🦥 Ask Arrenia: Multiply 3/5 &times; 5/6, then simplify the result.</div>
+    </div>
+
+    <div class="slide" data-slide="4">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>Dividing Fractions: Keep-Change-Flip</h2>
+      <p>Dividing by a fraction means asking "how many of these fit?" The reciprocal
+      (flipping the second fraction) turns division into multiplication:</p>
+      <div class="example-box">
+        <strong>a/b &divide; c/d = a/b &times; d/c</strong><br>
+        Keep the first fraction, change &divide; to &times;, flip the second fraction.
+      </div>
+      <p>Why it works: dividing by c/d is the same as asking how many groups of c/d fit into a/b &mdash;
+      and multiplying by the reciprocal counts exactly that.</p>
+      <div class="ask">🦥 Ask Arrenia: How many 1/4-cup scoops fit into 3/4 cup? Try it with keep-change-flip: 3/4 &divide; 1/4.</div>
+    </div>
+
+    <div class="slide" data-slide="5">
+      <span class="slide-eyebrow">Worked Example 2</span>
+      <h2>Divide Using the Reciprocal</h2>
+      <div class="example-box">
+        2/3 &divide; 1/4 = 2/3 &times; 4/1 = (2 &times; 4) / (3 &times; 1) = 8/3 = <strong>2 2/3</strong>
+      </div>
+      <p>It makes sense that the answer is bigger than 2/3 &mdash; you're asking how many
+      (small) 1/4-size pieces fit into 2/3, so you get several of them.</p>
+      <div class="ask">🦥 Ask Arrenia: Predict whether 5/6 &divide; 2/3 will be bigger or smaller than 1, before solving it.</div>
+    </div>
+
+    <div class="slide" data-slide="6">
+      <span class="slide-eyebrow">Challenge</span>
+      <h2>Two-Step Word Problem</h2>
+      <p>A recipe uses 3/4 cup of orange juice per batch. You have 4 1/2 cups of juice. How many
+      full batches can you make?</p>
+      <div class="example-box alt">
+        4 1/2 &divide; 3/4 = 9/2 &divide; 3/4 = 9/2 &times; 4/3 = 36/6 = <strong>6 full batches</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why did we convert 4 1/2 into the improper fraction 9/2 before dividing?</div>
+    </div>
+
+    <div class="slide" data-slide="7">
+      <span class="slide-eyebrow">Standard Connection</span>
+      <h2>Why This Matters for STAAR</h2>
+      <div class="teks-tags" style="margin-bottom:14px;">
+        <span class="teks-tag">6.3B</span>
+        <span class="teks-tag">6.3E &mdash; Readiness</span>
+        <span class="teks-tag">6.2E</span>
+        <span class="teks-tag">6.3A</span>
+      </div>
+      <p><strong>6.3E</strong>, solving problems by multiplying and dividing rational numbers, is a
+      Readiness standard tested heavily on STAAR. Understanding <strong>why</strong> keep-change-flip
+      works (6.3A) helps you avoid the common mistake of flipping the wrong fraction under pressure.</p>
+    </div>
+
+    <div class="slide" data-slide="8">
+      <span class="slide-eyebrow">Exit Ticket</span>
+      <h2>Try These on Your Own</h2>
+      <ol class="exit-list">
+        <li>Multiply: 3/4 &times; 2/5</li>
+        <li>Multiply: 5/8 &times; 4/9, then simplify</li>
+        <li>Divide: 5/6 &divide; 1/3</li>
+        <li>A ribbon is 5/6 yard long. If you cut it into pieces that are 1/6 yard each, how many pieces do you get?</li>
+      </ol>
+      <p style="margin-top:14px; color:var(--bark-soft); font-size:0.9rem;">No answers shown here &mdash;
+      head to Practice the Lesson to check your work!</p>
+    </div>
+
+    <div class="slide" data-slide="9">
+      <div class="celebrate">
+        <div class="big-emoji">🌿🦥</div>
+        <h2>You're a Fraction Master!</h2>
+        <p>You can multiply straight across and divide with keep-change-flip &mdash; and you know
+        why both tricks work. Head to <strong>Practice the Lesson</strong> to earn your badge.</p>
+        <a class="btn btn-gold" href="lesson3.html">🍊 Go to Practice</a>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-outline btn-sm" id="backBtn">&larr; Back</button>
+      <span class="slide-counter" id="slideCounter">Slide 1 of 9</span>
+      <button class="btn btn-gold btn-sm" id="nextBtn">Next &rarr;</button>
+    </div>
+    <div class="slide-progress-dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Build 3x4 grid model shading 2 rows x 3 cols (2/3 x 3/4 overlap)
+  const grid = document.getElementById('gridModel');
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 4; c++) {
+      const cell = document.createElement('div');
+      if (r < 2 && c < 3) cell.classList.add('shaded');
+      grid.appendChild(cell);
+    }
+  }
+
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+    document.getElementById('slideCounter').textContent = `Slide ${current} of ${total}`;
+    document.getElementById('backBtn').disabled = current === 1;
+    document.getElementById('nextBtn').textContent = current === total ? 'Done ✓' : 'Next →';
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < total) { current++; render(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (current > 1) { current--; render(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && current < total) { current++; render(); }
+    if (e.key === 'ArrowLeft' && current > 1) { current--; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>
