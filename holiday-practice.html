@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Bootcamp: Extra Practice &ndash; Shape &amp; Formula Match</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .shape-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin: 10px 0 8px;
+  }
+  .shape-card {
+    background: var(--white); border: 2px solid rgba(74,55,40,0.12); border-radius: 16px;
+    padding: 16px; text-align:center;
+  }
+  .shape-card .shape-name { font-family: var(--font-display); font-weight:700; margin-bottom:10px; }
+  .mini-rect { width:70px; height:44px; background: var(--frost-teal); opacity:0.75; border-radius:4px; margin: 0 auto 10px; }
+  .mini-parallelogram { width:80px; height:46px; background: var(--marmalade); opacity:0.8; margin: 0 auto 10px; clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%); }
+  .mini-triangle { width:0; height:0; border-left:36px solid transparent; border-right:36px solid transparent; border-bottom:50px solid var(--golden-sloth); margin: 0 auto 10px; }
+  .mini-trapezoid { width:0; height:0; border-bottom: 46px solid var(--fern); border-left: 20px solid transparent; border-right: 20px solid transparent; width:50px; margin: 0 auto 10px; }
+  .mini-prism { width:64px; height:46px; background: var(--frost-teal); opacity:0.75; margin: 6px auto 14px; position:relative; }
+  .mini-prism::after { content:""; position:absolute; top:-10px; left:10px; width:64px; height:46px; border:2px dashed var(--frost-teal-dark); }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="holiday-ribbon">❄️ Winter Break Bonus</span>
+    <h1>📐 Shape &amp; Formula Match</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--frost-teal);">
+    <div class="game-instructions">
+      Drag each formula tile onto the shape it belongs to. Not every tile has a home &mdash; watch
+      out for decoys! Use <strong>b</strong> = base, <strong>h</strong> = height,
+      <strong>l</strong> = length, <strong>w</strong> = width.
+    </div>
+
+    <div class="shape-grid">
+      <div class="shape-card">
+        <div class="shape-name">Rectangle</div>
+        <div class="mini-rect"></div>
+        <div class="drop-zone" id="zone-rect" style="margin:0 auto;" ondragover="allowDrop(event)" ondrop="dropTile(event,'rect')" onclick="clearZone('rect')">drop formula</div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-name">Parallelogram</div>
+        <div class="mini-parallelogram"></div>
+        <div class="drop-zone" id="zone-para" style="margin:0 auto;" ondragover="allowDrop(event)" ondrop="dropTile(event,'para')" onclick="clearZone('para')">drop formula</div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-name">Triangle</div>
+        <div class="mini-triangle"></div>
+        <div class="drop-zone" id="zone-tri" style="margin:0 auto;" ondragover="allowDrop(event)" ondrop="dropTile(event,'tri')" onclick="clearZone('tri')">drop formula</div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-name">Trapezoid</div>
+        <div class="mini-trapezoid"></div>
+        <div class="drop-zone" id="zone-trap" style="margin:0 auto;" ondragover="allowDrop(event)" ondrop="dropTile(event,'trap')" onclick="clearZone('trap')">drop formula</div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-name">Rectangular Prism (Volume)</div>
+        <div class="mini-prism"></div>
+        <div class="drop-zone" id="zone-prism" style="margin:0 auto;" ondragover="allowDrop(event)" ondrop="dropTile(event,'prism')" onclick="clearZone('prism')">drop formula</div>
+      </div>
+    </div>
+
+    <div class="vine-divider" style="margin:26px 0 12px;">🍊 Formula Tiles</div>
+    <div class="drag-source-row" id="tileRow"></div>
+
+    <div class="game-controls">
+      <button class="btn btn-frost" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 Shuffle Tiles</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const answers = {
+    rect: 'l × w',
+    para: 'b × h',
+    tri: '½ × b × h',
+    trap: '½(b₁+b₂) × h',
+    prism: 'l × w × h',
+  };
+  const decoys = ['2(l + w)', 's³'];
+
+  let zoneValues = {};
+
+  function setupZones() {
+    zoneValues = { rect: null, para: null, tri: null, trap: null, prism: null };
+    Object.keys(answers).forEach(k => {
+      const zone = document.getElementById('zone-' + k);
+      zone.textContent = 'drop formula';
+      zone.className = 'drop-zone';
+      delete zone.dataset.tileId;
+    });
+  }
+
+  function buildTiles() {
+    const allLabels = [...Object.values(answers), ...decoys];
+    const shuffled = allLabels.sort(() => Math.random() - 0.5);
+
+    const tileRow = document.getElementById('tileRow');
+    tileRow.innerHTML = '';
+    shuffled.forEach((label, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-item';
+      tile.textContent = label;
+      tile.draggable = true;
+      tile.id = 'ftile-' + i;
+      tile.dataset.value = label;
+      tile.addEventListener('dragstart', dragStart);
+      tileRow.appendChild(tile);
+    });
+  }
+
+  function newProblem() {
+    setupZones();
+    buildTiles();
+    document.getElementById('feedback').textContent = '';
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  }
+
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  }
+
+  function dropTile(e, key) {
+    e.preventDefault();
+    const zone = document.getElementById('zone-' + key);
+    zone.classList.remove('drag-over');
+
+    const tileId = e.dataTransfer.getData('text/plain');
+    const tile = document.getElementById(tileId);
+    if (!tile || tile.classList.contains('placed')) return;
+
+    if (zone.dataset.tileId) {
+      const oldTile = document.getElementById(zone.dataset.tileId);
+      if (oldTile) oldTile.classList.remove('placed');
+    }
+
+    zone.textContent = tile.dataset.value;
+    zone.dataset.tileId = tile.id;
+    zone.classList.add('filled');
+    zone.classList.remove('zone-correct', 'zone-incorrect');
+    tile.classList.add('placed');
+
+    zoneValues[key] = tile.dataset.value;
+  }
+
+  function clearZone(key) {
+    const zone = document.getElementById('zone-' + key);
+    if (zone.dataset.tileId) {
+      const tile = document.getElementById(zone.dataset.tileId);
+      if (tile) tile.classList.remove('placed');
+    }
+    zone.textContent = 'drop formula';
+    zone.className = 'drop-zone';
+    delete zone.dataset.tileId;
+    zoneValues[key] = null;
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    const keys = Object.keys(answers);
+    if (keys.some(k => zoneValues[k] === null)) {
+      feedback.textContent = '🦥 Fill in every shape first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    let allCorrect = true;
+    keys.forEach(k => {
+      const zone = document.getElementById('zone-' + k);
+      if (zoneValues[k] === answers[k]) {
+        zone.classList.add('zone-correct'); zone.classList.remove('zone-incorrect');
+      } else {
+        zone.classList.add('zone-incorrect'); zone.classList.remove('zone-correct');
+        allCorrect = false;
+      }
+    });
+    if (allCorrect) {
+      feedback.textContent = '🎉 Every formula matched — you know your shapes!';
+      feedback.style.color = 'var(--fern-dark)';
+    } else {
+      feedback.textContent = '🍊 A few formulas are on the wrong shape — check them and try again.';
+      feedback.style.color = 'var(--burnt-clay-dark)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

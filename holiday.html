@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Bootcamp: Practice &ndash; Geometry Bridge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="holiday-ribbon">❄️ Winter Break Bonus</span>
+    <h1>Geometry Bridge: 5th Grade Review → 6th Grade Preview</h1>
+    <p style="color:var(--bark-soft);">Eight questions &mdash; pick an answer, get instant feedback, and keep trying until you get it.</p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 1 &middot; Review</div>
+    <p class="prompt">Find the area of a rectangle that is 8 ft by 5 ft.</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">13 ft²</div>
+      <div class="choice" onclick="check(this, true)">40 ft²</div>
+      <div class="choice" onclick="check(this, false)">26 ft²</div>
+      <div class="choice" onclick="check(this, false)">45 ft²</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 2 &middot; Review</div>
+    <p class="prompt">What is the perimeter of a rectangular garden that is 12 ft by 7 ft?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">38 ft</div>
+      <div class="choice" onclick="check(this, false)">84 ft</div>
+      <div class="choice" onclick="check(this, false)">19 ft</div>
+      <div class="choice" onclick="check(this, false)">42 ft</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 3 &middot; Review</div>
+    <p class="prompt">Find the volume of a rectangular prism that is 4 in &times; 3 in &times; 2 in.</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">9 in³</div>
+      <div class="choice" onclick="check(this, true)">24 in³</div>
+      <div class="choice" onclick="check(this, false)">18 in³</div>
+      <div class="choice" onclick="check(this, false)">14 in³</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 4 &middot; Review</div>
+    <p class="prompt">A quadrilateral has 4 right angles, but its sides aren't all equal. What is it?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">Square</div>
+      <div class="choice" onclick="check(this, true)">Rectangle</div>
+      <div class="choice" onclick="check(this, false)">Trapezoid</div>
+      <div class="choice" onclick="check(this, false)">Rhombus</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 5 &middot; Preview</div>
+    <p class="prompt">Find the area of a parallelogram with base 9 m and height 4 m.</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">13 m²</div>
+      <div class="choice" onclick="check(this, true)">36 m²</div>
+      <div class="choice" onclick="check(this, false)">26 m²</div>
+      <div class="choice" onclick="check(this, false)">18 m²</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 6 &middot; Preview</div>
+    <p class="prompt">Find the area of a triangle with base 10 cm and height 6 cm.</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">60 cm²</div>
+      <div class="choice" onclick="check(this, true)">30 cm²</div>
+      <div class="choice" onclick="check(this, false)">16 cm²</div>
+      <div class="choice" onclick="check(this, false)">20 cm²</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 7 &middot; Preview</div>
+    <p class="prompt">Which three side lengths CAN form a triangle?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">2, 3, 7</div>
+      <div class="choice" onclick="check(this, true)">5, 6, 10</div>
+      <div class="choice" onclick="check(this, false)">4, 4, 9</div>
+      <div class="choice" onclick="check(this, false)">1, 2, 3</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 8 &middot; Challenge</div>
+    <p class="prompt">A rectangular box is 2.5 ft &times; 3 ft &times; 4 ft. What is its volume?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">9.5 ft³</div>
+      <div class="choice" onclick="check(this, true)">30 ft³</div>
+      <div class="choice" onclick="check(this, false)">19 ft³</div>
+      <div class="choice" onclick="check(this, false)">12 ft³</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="finish-bar">
+    <button class="btn btn-frost" id="finishBtn">❄️ Finish Bootcamp</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  function check(element, isCorrect) {
+    const choices = element.parentElement.querySelectorAll('.choice');
+    const feedback = element.parentElement.nextElementSibling;
+
+    if (isCorrect) {
+      choices.forEach(c => c.style.pointerEvents = 'none');
+      element.classList.add('correct');
+      feedback.textContent = "🎉 Nice work! That's it.";
+      feedback.className = 'feedback correct-text';
+      launchConfetti();
+    } else {
+      element.classList.add('incorrect');
+      feedback.textContent = '🍊 Not quite — try again!';
+      feedback.className = 'feedback incorrect-text';
+    }
+  }
+
+  function launchConfetti() {
+    const emojis = ['🍊', '🦥', '❄️', '✨'];
+    for (let i = 0; i < 18; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      piece.style.fontSize = (0.8 + Math.random() * 0.9) + 'rem';
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3600);
+    }
+  }
+
+  document.getElementById('finishBtn').addEventListener('click', () => {
+    try {
+      localStorage.setItem('holiday', 'complete');
+    } catch (e) {
+      console.warn("Couldn't save progress in this browser:", e);
+    } finally {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

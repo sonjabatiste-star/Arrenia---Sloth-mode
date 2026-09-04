@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Bootcamp: Teach &ndash; Geometry Bridge</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .exit-list { padding-left: 1.1em; margin: 10px 0 0; }
+  .exit-list li { margin-bottom: 8px; font-weight: 600; }
+  .celebrate { text-align:center; }
+  .celebrate .big-emoji { font-size: 4rem; margin-bottom: 6px; }
+  .shape-row { display:flex; justify-content:center; gap:20px; margin: 16px 0; flex-wrap:wrap; }
+  .shape-box { text-align:center; font-family: var(--font-mono); font-size: 0.72rem; color: var(--bark-soft); }
+  .rect-shape { width:90px; height:56px; background: var(--frost-teal); opacity:0.75; border-radius:4px; margin:0 auto 6px; }
+  .prism-shape { width:80px; height:60px; background: var(--frost-teal); opacity:0.75; margin:0 auto 6px; position:relative; }
+  .prism-shape::after { content:""; position:absolute; top:-14px; left:14px; width:80px; height:60px; border:2px dashed var(--frost-teal-dark); }
+  .hierarchy { display:flex; flex-direction:column; align-items:center; gap:8px; margin: 14px 0; font-family: var(--font-mono); font-size:0.78rem; }
+  .hierarchy .lvl { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .hierarchy .box { background: var(--canopy-cream-2); border:2px solid var(--frost-teal); border-radius:10px; padding:6px 12px; }
+  .parallelogram-shape { width:100px; height:60px; background: var(--marmalade); opacity:0.8; margin: 10px auto; clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); }
+  .triangle-shape { width:0; height:0; border-left:50px solid transparent; border-right:50px solid transparent; border-bottom:70px solid var(--golden-sloth); margin:10px auto; }
+  .trapezoid-shape { width:0; height:0; border-bottom: 60px solid var(--fern); border-left: 25px solid transparent; border-right: 25px solid transparent; width:70px; margin:10px auto; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+</div>
+
+<div class="slide-stage">
+  <div class="slide-card">
+
+    <div class="slide active" data-slide="1">
+      <span class="holiday-ribbon">❄️ Winter Break Bonus</span>
+      <span class="slide-eyebrow">Geometry Bridge &middot; 5th Grade Review → 6th Grade Preview</span>
+      <h2 class="display">🦥🧣 Mission: Bridge the Geometry Gap</h2>
+      <p>Winter break is the perfect time to lock in what you already know about area, perimeter,
+      and volume from 5th grade — and get a sneak peek at the new shapes and ideas coming up in 6th
+      grade geometry.</p>
+      <div class="ask">🦥 Ask Arrenia: What's the difference between perimeter and area? Can you describe each in your own words?</div>
+    </div>
+
+    <div class="slide" data-slide="2">
+      <span class="slide-eyebrow">Review &middot; 5.4H</span>
+      <h2>Perimeter &amp; Area Refresher</h2>
+      <p><strong>Perimeter</strong> is the distance around a shape — add up all the sides.
+      <strong>Area</strong> is the space inside a shape — for a rectangle, multiply length &times; width.</p>
+      <div class="shape-row">
+        <div class="shape-box"><div class="rect-shape"></div>8 ft &times; 5 ft</div>
+      </div>
+      <div class="example-box">
+        Perimeter = 8 + 5 + 8 + 5 = <strong>26 ft</strong><br>
+        Area = 8 &times; 5 = <strong>40 ft&sup2;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why does area get measured in "square" units but perimeter doesn't?</div>
+    </div>
+
+    <div class="slide" data-slide="3">
+      <span class="slide-eyebrow">Worked Example 1 &middot; Review</span>
+      <h2>A Composite Figure</h2>
+      <p>An L-shaped room is made of a 10 ft &times; 6 ft rectangle with a 4 ft &times; 3 ft corner
+      cut out. Find the area.</p>
+      <div class="example-box">
+        Big rectangle: 10 &times; 6 = 60 ft&sup2;<br>
+        Cut-out corner: 4 &times; 3 = 12 ft&sup2;<br>
+        Total area: 60 &minus; 12 = <strong>48 ft&sup2;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: What's another way you could split this L-shape into two rectangles instead of subtracting a corner?</div>
+    </div>
+
+    <div class="slide" data-slide="4">
+      <span class="slide-eyebrow">Review &middot; 5.6A, 5.6B</span>
+      <h2>Volume of Rectangular Prisms</h2>
+      <p>Volume measures how many unit cubes fit inside a 3D shape, with no gaps or overlaps:</p>
+      <div class="shape-row">
+        <div class="shape-box"><div class="prism-shape"></div>4 in &times; 3 in &times; 2 in</div>
+      </div>
+      <div class="example-box">
+        <strong>V = l &times; w &times; h</strong><br>
+        V = 4 &times; 3 &times; 2 = <strong>24 in&sup3;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: If you double the height of this prism, what happens to the volume?</div>
+    </div>
+
+    <div class="slide" data-slide="5">
+      <span class="slide-eyebrow">Review &middot; 5.5A</span>
+      <h2>The Quadrilateral Family Tree</h2>
+      <p>Some shapes are special versions of other shapes — every square is a rectangle, but not
+      every rectangle is a square.</p>
+      <div class="hierarchy">
+        <div class="lvl"><div class="box">Quadrilaterals (4 sides)</div></div>
+        <div class="lvl"><div class="box">Parallelograms</div><div class="box">Trapezoids</div></div>
+        <div class="lvl"><div class="box">Rectangles</div><div class="box">Rhombi</div></div>
+        <div class="lvl"><div class="box">Squares</div></div>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Is every square a rhombus? Is every rhombus a square? What's the difference?</div>
+    </div>
+
+    <div class="slide" data-slide="6">
+      <span class="slide-eyebrow">Coming Up in 6th Grade</span>
+      <h2>New Shapes, New Formulas</h2>
+      <p>In 6th grade, you'll go beyond rectangles to find the area of <strong>parallelograms</strong>,
+      <strong>triangles</strong>, and <strong>trapezoids</strong> — by decomposing them into shapes
+      you already know how to measure.</p>
+      <div class="ask">🦥 Ask Arrenia: If you could cut a parallelogram apart and rearrange the pieces, what simple shape do you think you could turn it into?</div>
+    </div>
+
+    <div class="slide" data-slide="7">
+      <span class="slide-eyebrow">Worked Example 2 &middot; Preview &middot; 6.8B</span>
+      <h2>Area of a Parallelogram</h2>
+      <div class="shape-row">
+        <div class="shape-box"><div class="parallelogram-shape"></div>base 9 m, height 4 m</div>
+      </div>
+      <p>Slice a triangle off one end of a parallelogram and slide it to the other end — it becomes
+      a rectangle with the same base and height!</p>
+      <div class="example-box">
+        <strong>A = base &times; height</strong><br>
+        A = 9 &times; 4 = <strong>36 m&sup2;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why does the "slide the triangle over" trick prove the area formula works?</div>
+    </div>
+
+    <div class="slide" data-slide="8">
+      <span class="slide-eyebrow">Worked Example 3 &middot; Preview &middot; 6.8B</span>
+      <h2>Area of a Triangle &amp; a Trapezoid</h2>
+      <div class="shape-row">
+        <div class="shape-box"><div class="triangle-shape"></div>base 10 cm, height 6 cm</div>
+      </div>
+      <p>Two identical triangles fit together to make a parallelogram — so a triangle's area is
+      always <em>half</em> of base &times; height:</p>
+      <div class="example-box">
+        <strong>A = &frac12; &times; base &times; height</strong><br>
+        A = &frac12; &times; 10 &times; 6 = <strong>30 cm&sup2;</strong>
+      </div>
+      <p>A trapezoid's area averages its two parallel sides (called bases) first:</p>
+      <div class="example-box alt">
+        <strong>A = &frac12;(b&#8321; + b&#8322;) &times; height</strong><br>
+        Bases 6 in &amp; 10 in, height 4 in → &frac12;(6+10) &times; 4 = <strong>32 in&sup2;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why does averaging the two parallel sides make sense for a trapezoid's area?</div>
+    </div>
+
+    <div class="slide" data-slide="9">
+      <span class="slide-eyebrow">Preview &middot; 6.8A</span>
+      <h2>Triangle Properties</h2>
+      <p>Two big triangle rules you'll use constantly in 6th grade:</p>
+      <div class="example-box">
+        <strong>Angle Sum:</strong> the three angles inside any triangle always add up to <strong>180&deg;</strong>.<br><br>
+        <strong>Triangle Inequality:</strong> the two shorter sides must add up to <em>more</em> than
+        the longest side, or the triangle can't close up.
+      </div>
+      <p>Example: can 2, 3, and 7 form a triangle? 2 + 3 = 5, which is less than 7 — <strong>no</strong>,
+      those sides are too short to meet.</p>
+      <div class="ask">🦥 Ask Arrenia: Can side lengths 5, 6, and 10 form a triangle? Check the rule.</div>
+    </div>
+
+    <div class="slide" data-slide="10">
+      <span class="slide-eyebrow">Worked Example 4 &middot; Preview &middot; 6.8D</span>
+      <h2>Volume with Rational Dimensions</h2>
+      <p>In 6th grade, prism dimensions won't always be whole numbers — the volume formula works
+      exactly the same way:</p>
+      <div class="example-box">
+        A box is 2.5 ft &times; 3 ft &times; 4 ft.<br>
+        <strong>V = l &times; w &times; h</strong><br>
+        V = 2.5 &times; 3 &times; 4 = <strong>30 ft&sup3;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: How is finding this volume similar to the whole-number prism from 5th grade? How is it different?</div>
+    </div>
+
+    <div class="slide" data-slide="11">
+      <span class="slide-eyebrow">Challenge</span>
+      <h2>Multi-Step Bridge Problem</h2>
+      <p>A garden bed is shaped like a trapezoid with parallel sides 8 ft and 12 ft, and a height of
+      5 ft. It will be filled with soil to a depth of 1.5 ft. How much soil (in cubic feet) is needed?</p>
+      <div class="example-box alt">
+        Area of trapezoid: &frac12;(8+12) &times; 5 = &frac12;(20)(5) = 50 ft&sup2;<br>
+        Volume of soil: 50 &times; 1.5 = <strong>75 ft&sup3;</strong>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Why does multiplying the trapezoid's area by the depth give you a volume?</div>
+    </div>
+
+    <div class="slide" data-slide="12">
+      <span class="slide-eyebrow">Standard Connection</span>
+      <h2>How 5th &amp; 6th Grade Geometry Connect</h2>
+      <div class="teks-tags" style="margin-bottom:14px;">
+        <span class="teks-tag">5.4H → 6.8D</span>
+        <span class="teks-tag">5.6A/B → 6.8D</span>
+        <span class="teks-tag">5.5A → 6.8B</span>
+        <span class="teks-tag">5.7A → 6.4H</span>
+      </div>
+      <p><strong>6.8D</strong> is a Readiness standard tested heavily on the Grade 6 STAAR — it's
+      exactly this skill set (area of rectangles, parallelograms, trapezoids, triangles, and volume of
+      rectangular prisms) applied to numbers that can now be fractions or decimals.</p>
+    </div>
+
+    <div class="slide" data-slide="13">
+      <span class="slide-eyebrow">Exit Ticket</span>
+      <h2>Try These on Your Own</h2>
+      <ol class="exit-list">
+        <li>Find the area and perimeter of a 9 in &times; 6 in rectangle.</li>
+        <li>Find the volume of a rectangular prism that is 5 cm &times; 4 cm &times; 3 cm.</li>
+        <li>Find the area of a parallelogram with base 7 m and height 5 m.</li>
+        <li>Can side lengths 4, 4, and 9 form a triangle? Explain using the triangle inequality.</li>
+      </ol>
+      <p style="margin-top:14px; color:var(--bark-soft); font-size:0.9rem;">No answers shown here &mdash;
+      head to Practice the Lesson to check your work!</p>
+    </div>
+
+    <div class="slide" data-slide="14">
+      <div class="celebrate">
+        <div class="big-emoji">🦥❄️📐</div>
+        <h2>You've Bridged the Gap!</h2>
+        <p>You've refreshed your 5th grade geometry skills and gotten a solid preview of what's coming
+        in 6th grade. Head to <strong>Practice the Lesson</strong> to earn your Bootcamp badge.</p>
+        <a class="btn btn-frost" href="holiday.html">🍊 Go to Practice</a>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-outline btn-sm" id="backBtn">&larr; Back</button>
+      <span class="slide-counter" id="slideCounter">Slide 1 of 14</span>
+      <button class="btn btn-frost btn-sm" id="nextBtn">Next &rarr;</button>
+    </div>
+    <div class="slide-progress-dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+    document.getElementById('slideCounter').textContent = `Slide ${current} of ${total}`;
+    document.getElementById('backBtn').disabled = current === 1;
+    document.getElementById('nextBtn').textContent = current === total ? 'Done ✓' : 'Next →';
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < total) { current++; render(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (current > 1) { current--; render(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && current < total) { current++; render(); }
+    if (e.key === 'ArrowLeft' && current > 1) { current--; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>
