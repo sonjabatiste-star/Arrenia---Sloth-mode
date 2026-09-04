@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 6: Teach &ndash; Rational Numbers, Coordinate Plane &amp; Review</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .exit-list { padding-left: 1.1em; margin: 10px 0 0; }
+  .exit-list li { margin-bottom: 8px; font-weight: 600; }
+  .celebrate { text-align:center; }
+  .celebrate .big-emoji { font-size: 4rem; margin-bottom: 6px; }
+  .venn-wrap { display:flex; justify-content:center; margin: 16px 0; }
+  .venn { position:relative; width:260px; height:180px; }
+  .venn .circ { position:absolute; border-radius:50%; display:flex; align-items:flex-start; justify-content:center; padding-top:8px; font-family:var(--font-mono); font-size:0.68rem; font-weight:700; color:var(--bark-soft); }
+  .venn .c1 { left:0; top:0; width:180px; height:180px; background:rgba(78,122,81,0.18); border:2px solid var(--fern); }
+  .venn .c2 { left:60px; top:20px; width:130px; height:130px; background:rgba(255,140,66,0.22); border:2px solid var(--marmalade); }
+  .venn .c3 { left:90px; top:45px; width:75px; height:75px; background:rgba(255,200,87,0.35); border:2px solid var(--golden-dark); align-items:center; padding-top:0; }
+  .mini-grid { display:grid; grid-template-columns: repeat(11,1fr); grid-template-rows: repeat(11,1fr); width:220px; height:220px; margin:16px auto; border:1px solid var(--bark-soft); position:relative; }
+  .mini-grid .axis-x { position:absolute; top:50%; left:0; right:0; height:1px; background:var(--bark); }
+  .mini-grid .axis-y { position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--bark); }
+  .mini-grid .pt { position:absolute; width:10px; height:10px; border-radius:50%; background:var(--burnt-clay); transform:translate(-50%,-50%); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+</div>
+
+<div class="slide-stage">
+  <div class="slide-card">
+
+    <div class="slide active" data-slide="1">
+      <span class="slide-eyebrow">Week 6 &middot; Module 3, Topic 1 + Six Weeks 1 Review</span>
+      <h2 class="display">🌐 Mission: Map the Number System</h2>
+      <p>Today you'll see how whole numbers, integers, and rational numbers fit together, plot points
+      on all four quadrants of the coordinate plane, and review everything from Six Weeks 1 before
+      the district Snapshot assessment.</p>
+      <div class="ask">🦥 Ask Arrenia: Is every whole number also an integer? Is every integer also a rational number?</div>
+    </div>
+
+    <div class="slide" data-slide="2">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>Classifying the Number System</h2>
+      <p>Numbers nest inside each other like a set of Russian dolls:</p>
+      <div class="venn-wrap">
+        <div class="venn">
+          <div class="circ c1" style="align-items:flex-start;">Rational</div>
+          <div class="circ c2" style="align-items:flex-start;">Integers</div>
+          <div class="circ c3">Whole</div>
+        </div>
+      </div>
+      <p style="text-align:center; color:var(--bark-soft); font-size:0.85rem;">Whole numbers (0,1,2,3...) are integers.
+      Integers (...,-2,-1,0,1,2...) are rational numbers.</p>
+      <div class="ask">🦥 Ask Arrenia: Where would &minus;1/2 go on this diagram? Is it an integer?</div>
+    </div>
+
+    <div class="slide" data-slide="3">
+      <span class="slide-eyebrow">Concept</span>
+      <h2>The Coordinate Plane, All Four Quadrants</h2>
+      <p>The x-axis and y-axis divide the plane into four quadrants. The sign of each coordinate
+      tells you which quadrant a point is in:</p>
+      <div class="mini-grid" id="miniGrid">
+        <div class="axis-x"></div>
+        <div class="axis-y"></div>
+      </div>
+      <div class="teks-tags" style="justify-content:center;">
+        <span class="teks-tag">QI: (+,+)</span><span class="teks-tag">QII: (&minus;,+)</span>
+        <span class="teks-tag">QIII: (&minus;,&minus;)</span><span class="teks-tag">QIV: (+,&minus;)</span>
+      </div>
+      <div class="ask">🦥 Ask Arrenia: Which quadrant is the point (&minus;3, &minus;5) in?</div>
+    </div>
+
+    <div class="slide" data-slide="4">
+      <span class="slide-eyebrow">Worked Example</span>
+      <h2>Plotting &amp; Reflecting Points</h2>
+      <p>Plot the point (4, &minus;2), then reflect it across the y-axis.</p>
+      <div class="example-box">
+        Original point: (4, &minus;2) is in Quadrant IV.<br>
+        Reflecting across the y-axis flips the sign of x only: (&minus;4, &minus;2), now in Quadrant III.
+      </div>
+      <div class="ask">🦥 Ask Arrenia: What happens to a point's coordinates when you reflect it across the x-axis instead?</div>
+    </div>
+
+    <div class="slide" data-slide="5">
+      <span class="slide-eyebrow">Six Weeks 1 Review</span>
+      <h2>Factors, Fractions &amp; Decimals Recap</h2>
+      <div class="example-box">
+        GCF(24, 36) = 12 &nbsp;&middot;&nbsp; LCM(8, 12) = 24<br>
+        2/3 &times; 3/4 = 1/2 &nbsp;&middot;&nbsp; 5/6 &divide; 1/3 = 2 1/2<br>
+        3.4 &times; 0.6 = 2.04 &nbsp;&middot;&nbsp; 7.5 &divide; 0.25 = 30
+      </div>
+      <p>These four weeks of skills — distributive property, benchmark fractions, fraction operations,
+      and decimal operations — are exactly what the Snapshot assessment will cover.</p>
+      <div class="ask">🦥 Ask Arrenia: Which of these topics from the last four weeks still feels the trickiest?</div>
+    </div>
+
+    <div class="slide" data-slide="6">
+      <span class="slide-eyebrow">Challenge</span>
+      <h2>Mixed Review Problem</h2>
+      <p>Order from least to greatest, then identify which are integers: &minus;2.5, 1/2, &minus;3, 0.75</p>
+      <div class="example-box alt">
+        As decimals: &minus;2.5, 0.5, &minus;3, 0.75<br>
+        Ordered: <strong>&minus;3, &minus;2.5, 1/2, 0.75</strong><br>
+        Only &minus;3 is an integer — the rest are non-integer rational numbers.
+      </div>
+      <div class="ask">🦥 Ask Arrenia: How did classifying each number help you double-check your ordering?</div>
+    </div>
+
+    <div class="slide" data-slide="7">
+      <span class="slide-eyebrow">Standard Connection</span>
+      <h2>Why This Matters for STAAR</h2>
+      <div class="teks-tags" style="margin-bottom:14px;">
+        <span class="teks-tag">6.2A</span>
+        <span class="teks-tag">6.2C</span>
+        <span class="teks-tag">6.2B</span>
+        <span class="teks-tag">6.11A</span>
+      </div>
+      <p>The Snapshot assessment covers all of Six Weeks 1 — prioritize <strong>6.2D</strong> (ordering
+      rational numbers) and <strong>6.3E</strong> (operations with rational numbers) in your warm-ups,
+      since those are the Readiness standards worth the most points.</p>
+    </div>
+
+    <div class="slide" data-slide="8">
+      <span class="slide-eyebrow">Exit Ticket</span>
+      <h2>Try These on Your Own</h2>
+      <ol class="exit-list">
+        <li>Which quadrant is the point (2, &minus;6) in?</li>
+        <li>Is &minus;7 a whole number, an integer, or both? Explain.</li>
+        <li>Order least to greatest: &minus;1.2, 3/4, &minus;2, 0.5</li>
+        <li>Reflect the point (&minus;3, 4) across the x-axis. What are the new coordinates?</li>
+      </ol>
+      <p style="margin-top:14px; color:var(--bark-soft); font-size:0.9rem;">No answers shown here &mdash;
+      head to Practice the Lesson to check your work!</p>
+    </div>
+
+    <div class="slide" data-slide="9">
+      <div class="celebrate">
+        <div class="big-emoji">🌐🦥</div>
+        <h2>You're a Coordinate Cartographer!</h2>
+        <p>You can classify rational numbers, navigate all four quadrants, and you've reviewed the
+        whole first six weeks. Head to <strong>Practice the Lesson</strong> to earn your badge.</p>
+        <a class="btn" href="lesson6.html">🍊 Go to Practice</a>
+      </div>
+    </div>
+
+    <div class="slide-nav">
+      <button class="btn btn-outline btn-sm" id="backBtn">&larr; Back</button>
+      <span class="slide-counter" id="slideCounter">Slide 1 of 9</span>
+      <button class="btn btn-sm" id="nextBtn">Next &rarr;</button>
+    </div>
+    <div class="slide-progress-dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Plot a few example points on the mini grid (range -5 to 5)
+  const grid = document.getElementById('miniGrid');
+  const pts = [[3,4],[-4,2],[-2,-3],[4,-1]];
+  pts.forEach(([x,y]) => {
+    const pt = document.createElement('div');
+    pt.className = 'pt';
+    pt.style.left = ((x+5)/10*100) + '%';
+    pt.style.top = ((5-y)/10*100) + '%';
+    grid.appendChild(pt);
+  });
+
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  const dotsWrap = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dotsWrap.appendChild(dot);
+  });
+
+  function render() {
+    slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+    document.getElementById('slideCounter').textContent = `Slide ${current} of ${total}`;
+    document.getElementById('backBtn').disabled = current === 1;
+    document.getElementById('nextBtn').textContent = current === total ? 'Done ✓' : 'Next →';
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (current < total) { current++; render(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (current > 1) { current--; render(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && current < total) { current++; render(); }
+    if (e.key === 'ArrowLeft' && current > 1) { current--; render(); }
+  });
+
+  render();
+</script>
+</body>
+</html>

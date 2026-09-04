@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 6: Extra Practice &ndash; Plot the Point</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .coord-display {
+    text-align:center; font-family: var(--font-display); font-size: 2rem; font-weight:700;
+    color: var(--marmalade-dark); margin: 6px 0 24px;
+  }
+  .grid-wrap { display:flex; justify-content:center; padding: 6px 0 20px; }
+  .coord-grid {
+    position: relative; width: 320px; height: 320px;
+    background-color: var(--canopy-cream-2);
+    background-image:
+      linear-gradient(to right, rgba(74,55,40,0.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(74,55,40,0.12) 1px, transparent 1px);
+    background-size: 10% 10%;
+    border: 2px dashed var(--marmalade);
+    border-radius: 12px;
+  }
+  .coord-grid.drag-over { background-color: #FFF1DE; }
+  .axis-line { position:absolute; background: var(--bark); }
+  .axis-x { top:50%; left:0; right:0; height:2px; }
+  .axis-y { left:50%; top:0; bottom:0; width:2px; }
+  .axis-tick-label { position:absolute; font-family: var(--font-mono); font-size: 0.62rem; color: var(--bark-soft); }
+  .quad-label { position:absolute; font-family: var(--font-mono); font-size: 0.68rem; color: var(--bark-soft); font-weight:700; }
+  .grid-marker {
+    position:absolute; width: 32px; height: 32px; display:flex; align-items:center; justify-content:center;
+    font-size: 1.3rem; cursor:grab; transform: translate(-50%, -50%);
+  }
+  .tray { display:flex; justify-content:center; margin: 10px 0 4px; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 6 &middot; Extra Practice</span>
+    <h1>📍 Plot the Point</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--marmalade);">
+    <div class="game-instructions">
+      Drag the 🦥 marker onto the grid so it lands on the target coordinate. The grid runs from
+      &minus;5 to 5 on both axes. Then hit Check Answer.
+    </div>
+
+    <div class="coord-display">Plot: <span id="coordLabel">(3, &minus;4)</span></div>
+
+    <div class="tray">
+      <div class="grid-marker" id="marker" draggable="true" style="position:static; transform:none;">🦥</div>
+    </div>
+
+    <div class="grid-wrap">
+      <div class="coord-grid" id="grid" ondragover="allowDrop(event)" ondrop="dropMarker(event)">
+        <div class="axis-line axis-x"></div>
+        <div class="axis-line axis-y"></div>
+        <div class="quad-label" style="left:78%; top:6%;">I</div>
+        <div class="quad-label" style="left:12%; top:6%;">II</div>
+        <div class="quad-label" style="left:12%; top:90%;">III</div>
+        <div class="quad-label" style="left:78%; top:90%;">IV</div>
+        <div class="axis-tick-label" style="left:2%; top:52%;">-5</div>
+        <div class="axis-tick-label" style="left:95%; top:52%;">5</div>
+        <div class="axis-tick-label" style="left:51%; top:2%;">5</div>
+        <div class="axis-tick-label" style="left:51%; top:94%;">-5</div>
+      </div>
+    </div>
+
+    <div class="game-controls">
+      <button class="btn" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Point</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const bank = [[3,-4],[-4,2],[2,3],[-3,-3],[5,1],[-2,4],[4,-2],[-5,-1]];
+
+  let current = null;
+  let placedX = null, placedY = null;
+  const grid = document.getElementById('grid');
+  const marker = document.getElementById('marker');
+  const tray = document.querySelector('.tray');
+
+  function newProblem() {
+    current = bank[Math.floor(Math.random() * bank.length)];
+    document.getElementById('coordLabel').textContent = `(${current[0]}, ${current[1]})`;
+    placedX = null; placedY = null;
+
+    marker.style.position = 'static';
+    marker.style.left = '';
+    marker.style.top = '';
+    marker.style.transform = 'none';
+    tray.appendChild(marker);
+
+    document.getElementById('feedback').textContent = '';
+    grid.style.borderColor = 'var(--marmalade)';
+  }
+
+  marker.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', 'marker');
+  });
+
+  function allowDrop(e) {
+    e.preventDefault();
+    grid.classList.add('drag-over');
+  }
+
+  function dropMarker(e) {
+    e.preventDefault();
+    grid.classList.remove('drag-over');
+    const rect = grid.getBoundingClientRect();
+    let relX = (e.clientX - rect.left) / rect.width;
+    let relY = (e.clientY - rect.top) / rect.height;
+    relX = Math.max(0, Math.min(1, relX));
+    relY = Math.max(0, Math.min(1, relY));
+
+    placedX = Math.round(relX * 10 - 5);
+    placedY = Math.round((1 - relY) * 10 - 5);
+
+    marker.style.position = 'absolute';
+    marker.style.left = ((placedX + 5) / 10 * 100) + '%';
+    marker.style.top = ((5 - placedY) / 10 * 100) + '%';
+    marker.style.transform = 'translate(-50%, -50%)';
+    grid.appendChild(marker);
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    if (placedX === null || placedY === null) {
+      feedback.textContent = '🦥 Drag the marker onto the grid first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    if (placedX === current[0] && placedY === current[1]) {
+      feedback.textContent = `🎉 Correct! (${current[0]}, ${current[1]}) is exactly right.`;
+      feedback.style.color = 'var(--fern-dark)';
+      grid.style.borderColor = 'var(--fern)';
+    } else {
+      feedback.textContent = `🍊 You placed (${placedX}, ${placedY}) — think about left/right for x and up/down for y, then try again.`;
+      feedback.style.color = 'var(--burnt-clay-dark)';
+      grid.style.borderColor = 'var(--burnt-clay)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

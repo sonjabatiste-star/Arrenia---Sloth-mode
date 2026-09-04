@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 6: Practice &ndash; Rational Numbers, Coordinate Plane &amp; Review</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 6 &middot; Practice</span>
+    <h1>Rational Numbers, Coordinate Plane &amp; Review</h1>
+    <p style="color:var(--bark-soft);">Six questions &mdash; pick an answer, get instant feedback, and keep trying until you get it.</p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 1</div>
+    <p class="prompt">Which best classifies &minus;4?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">Whole number only</div>
+      <div class="choice" onclick="check(this, true)">Integer and rational number</div>
+      <div class="choice" onclick="check(this, false)">Rational number only, not an integer</div>
+      <div class="choice" onclick="check(this, false)">None of these</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 2</div>
+    <p class="prompt">Which quadrant is the point (&minus;3, 5) in?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">Quadrant I</div>
+      <div class="choice" onclick="check(this, true)">Quadrant II</div>
+      <div class="choice" onclick="check(this, false)">Quadrant III</div>
+      <div class="choice" onclick="check(this, false)">Quadrant IV</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 3</div>
+    <p class="prompt">What are the coordinates of a point 4 units left of the origin and 2 units down?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">(4, &minus;2)</div>
+      <div class="choice" onclick="check(this, true)">(&minus;4, &minus;2)</div>
+      <div class="choice" onclick="check(this, false)">(&minus;4, 2)</div>
+      <div class="choice" onclick="check(this, false)">(4, 2)</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 4 &middot; Review</div>
+    <p class="prompt">What is GCF(20, 30)?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, false)">5</div>
+      <div class="choice" onclick="check(this, true)">10</div>
+      <div class="choice" onclick="check(this, false)">15</div>
+      <div class="choice" onclick="check(this, false)">20</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 5 &middot; Review</div>
+    <p class="prompt">3/5 &times; 2/3 = ? (simplify)</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">2/5</div>
+      <div class="choice" onclick="check(this, false)">6/8</div>
+      <div class="choice" onclick="check(this, false)">5/8</div>
+      <div class="choice" onclick="check(this, false)">1</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 6 &middot; Challenge</div>
+    <p class="prompt">Order from least to greatest: &minus;2.5, 1/2, &minus;3, 0.75</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">&minus;3, &minus;2.5, 1/2, 0.75</div>
+      <div class="choice" onclick="check(this, false)">0.75, 1/2, &minus;2.5, &minus;3</div>
+      <div class="choice" onclick="check(this, false)">&minus;2.5, &minus;3, 1/2, 0.75</div>
+      <div class="choice" onclick="check(this, false)">1/2, &minus;3, &minus;2.5, 0.75</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="finish-bar">
+    <button class="btn" id="finishBtn">🌐 Finish Lesson</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  function check(element, isCorrect) {
+    const choices = element.parentElement.querySelectorAll('.choice');
+    const feedback = element.parentElement.nextElementSibling;
+
+    if (isCorrect) {
+      choices.forEach(c => c.style.pointerEvents = 'none');
+      element.classList.add('correct');
+      feedback.textContent = "🎉 Nice work! That's it.";
+      feedback.className = 'feedback correct-text';
+      launchConfetti();
+    } else {
+      element.classList.add('incorrect');
+      feedback.textContent = '🍊 Not quite — try again!';
+      feedback.className = 'feedback incorrect-text';
+    }
+  }
+
+  function launchConfetti() {
+    const emojis = ['🍊', '🦥', '🌿', '✨'];
+    for (let i = 0; i < 18; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      piece.style.fontSize = (0.8 + Math.random() * 0.9) + 'rem';
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3600);
+    }
+  }
+
+  document.getElementById('finishBtn').addEventListener('click', () => {
+    try {
+      localStorage.setItem('lesson6', 'complete');
+    } catch (e) {
+      console.warn("Couldn't save progress in this browser:", e);
+    } finally {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

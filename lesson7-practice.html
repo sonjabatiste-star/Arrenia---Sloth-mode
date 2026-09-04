@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 7: Extra Practice &ndash; Build the Equivalent Ratio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .problem-display {
+    text-align:center; font-family: var(--font-display); font-size: 1.5rem; font-weight:700;
+    margin: 6px 0 24px; color: var(--bark);
+  }
+  .equation-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
+  .ratio-slot { display:flex; align-items:center; gap:10px; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 7 &middot; Extra Practice</span>
+    <h1>🍊 Build the Equivalent Ratio</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--golden-dark);">
+    <div class="game-instructions">
+      Multiply both numbers in the ratio by the scale factor, then drag the correct tiles into the
+      new ratio boxes.
+    </div>
+
+    <div class="problem-display" id="problemLabel">2 : 3, scaled by &times;4</div>
+
+    <div class="equation-row">
+      <div class="ratio-slot">
+        <div class="drop-zone" id="zoneA" ondragover="allowDrop(event)" ondrop="dropTile(event,'zoneA')" onclick="clearZone('zoneA')">?</div>
+        <span style="font-size:1.6rem;">:</span>
+        <div class="drop-zone" id="zoneB" ondragover="allowDrop(event)" ondrop="dropTile(event,'zoneB')" onclick="clearZone('zoneB')">?</div>
+      </div>
+    </div>
+
+    <div class="vine-divider" style="margin:26px 0 12px;">🌿 Tiles</div>
+    <div class="drag-source-row" id="tileRow"></div>
+
+    <div class="game-controls">
+      <button class="btn btn-gold" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Problem</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const problems = [
+    { a: 2, b: 3, k: 4 }, { a: 3, b: 5, k: 3 }, { a: 4, b: 7, k: 2 },
+    { a: 5, b: 6, k: 3 }, { a: 1, b: 4, k: 5 }, { a: 3, b: 8, k: 2 },
+  ];
+
+  let problem = null;
+  let target = { num: 0, den: 0 };
+  let zoneValues = { zoneA: null, zoneB: null };
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function newProblem() {
+    problem = problems[randInt(0, problems.length - 1)];
+    target.num = problem.a * problem.k;
+    target.den = problem.b * problem.k;
+    document.getElementById('problemLabel').textContent = `${problem.a} : ${problem.b}, scaled by ×${problem.k}`;
+
+    const tileSet = new Set([target.num, target.den]);
+    while (tileSet.size < 6) {
+      const decoy = randInt(1, 45);
+      if (decoy !== target.num && decoy !== target.den) tileSet.add(decoy);
+    }
+    const tiles = [...tileSet].sort(() => Math.random() - 0.5);
+
+    const tileRow = document.getElementById('tileRow');
+    tileRow.innerHTML = '';
+    tiles.forEach((val, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'drag-item';
+      tile.textContent = val;
+      tile.draggable = true;
+      tile.id = 'rtile-' + i;
+      tile.dataset.value = val;
+      tile.addEventListener('dragstart', dragStart);
+      tileRow.appendChild(tile);
+    });
+
+    zoneValues = { zoneA: null, zoneB: null };
+    ['zoneA', 'zoneB'].forEach(z => {
+      const zone = document.getElementById(z);
+      zone.textContent = '?';
+      zone.className = 'drop-zone';
+      delete zone.dataset.tileId;
+    });
+
+    document.getElementById('feedback').textContent = '';
+  }
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+  }
+
+  function allowDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+  }
+
+  function dropTile(e, zoneId) {
+    e.preventDefault();
+    const zone = document.getElementById(zoneId);
+    zone.classList.remove('drag-over');
+
+    const tileId = e.dataTransfer.getData('text/plain');
+    const tile = document.getElementById(tileId);
+    if (!tile || tile.classList.contains('placed')) return;
+
+    if (zone.dataset.tileId) {
+      const oldTile = document.getElementById(zone.dataset.tileId);
+      if (oldTile) oldTile.classList.remove('placed');
+    }
+
+    zone.textContent = tile.dataset.value;
+    zone.dataset.tileId = tile.id;
+    zone.classList.add('filled');
+    zone.classList.remove('zone-correct', 'zone-incorrect');
+    tile.classList.add('placed');
+
+    zoneValues[zoneId] = Number(tile.dataset.value);
+  }
+
+  function clearZone(zoneId) {
+    const zone = document.getElementById(zoneId);
+    if (zone.dataset.tileId) {
+      const tile = document.getElementById(zone.dataset.tileId);
+      if (tile) tile.classList.remove('placed');
+    }
+    zone.textContent = '?';
+    zone.className = 'drop-zone';
+    delete zone.dataset.tileId;
+    zoneValues[zoneId] = null;
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    if (zoneValues.zoneA === null || zoneValues.zoneB === null) {
+      feedback.textContent = '🦥 Drag a tile into both boxes first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    const zoneA = document.getElementById('zoneA');
+    const zoneB = document.getElementById('zoneB');
+
+    if (zoneValues.zoneA === target.num && zoneValues.zoneB === target.den) {
+      zoneA.classList.add('zone-correct'); zoneB.classList.add('zone-correct');
+      zoneA.classList.remove('zone-incorrect'); zoneB.classList.remove('zone-incorrect');
+      feedback.textContent = `🎉 Correct! ${problem.a} : ${problem.b} scaled by ×${problem.k} is ${target.num} : ${target.den}.`;
+      feedback.style.color = 'var(--fern-dark)';
+    } else {
+      zoneA.classList.add('zone-incorrect'); zoneB.classList.add('zone-incorrect');
+      zoneA.classList.remove('zone-correct'); zoneB.classList.remove('zone-correct');
+      feedback.textContent = `🍊 Not quite — multiply both ${problem.a} and ${problem.b} by ${problem.k}, then try again.`;
+      feedback.style.color = 'var(--burnt-clay-dark)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>

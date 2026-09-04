@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5: Practice &ndash; Negative Numbers &amp; Absolute Value</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 5 &middot; Practice</span>
+    <h1>Negative Numbers &amp; Absolute Value</h1>
+    <p style="color:var(--bark-soft);">Six questions &mdash; pick an answer, get instant feedback, and keep trying until you get it.</p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 1</div>
+    <p class="prompt">What is |&minus;7|?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">7</div>
+      <div class="choice" onclick="check(this, false)">&minus;7</div>
+      <div class="choice" onclick="check(this, false)">0</div>
+      <div class="choice" onclick="check(this, false)">14</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 2</div>
+    <p class="prompt">Which number is farther from zero on the number line: &minus;9 or 6?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">&minus;9</div>
+      <div class="choice" onclick="check(this, false)">6</div>
+      <div class="choice" onclick="check(this, false)">They're equally far</div>
+      <div class="choice" onclick="check(this, false)">Can't tell</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 3</div>
+    <p class="prompt">Order from least to greatest: &minus;5, 3, &minus;2, 0</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">&minus;5, &minus;2, 0, 3</div>
+      <div class="choice" onclick="check(this, false)">3, 0, &minus;2, &minus;5</div>
+      <div class="choice" onclick="check(this, false)">&minus;2, &minus;5, 0, 3</div>
+      <div class="choice" onclick="check(this, false)">0, &minus;2, &minus;5, 3</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 4</div>
+    <p class="prompt">A submarine is at &minus;120 feet. A diver is at &minus;45 feet. Who is deeper?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">The submarine</div>
+      <div class="choice" onclick="check(this, false)">The diver</div>
+      <div class="choice" onclick="check(this, false)">They're at the same depth</div>
+      <div class="choice" onclick="check(this, false)">Can't tell without more information</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 5</div>
+    <p class="prompt">|&minus;3| + |5| = ?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">8</div>
+      <div class="choice" onclick="check(this, false)">2</div>
+      <div class="choice" onclick="check(this, false)">&minus;8</div>
+      <div class="choice" onclick="check(this, false)">&minus;2</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="card">
+    <div class="question-number">Question 6 &middot; Challenge</div>
+    <p class="prompt">The temperature is 5°F and drops by 12 degrees. What's the new temperature?</p>
+    <div class="choices">
+      <div class="choice" onclick="check(this, true)">&minus;7°F</div>
+      <div class="choice" onclick="check(this, false)">7°F</div>
+      <div class="choice" onclick="check(this, false)">17°F</div>
+      <div class="choice" onclick="check(this, false)">&minus;17°F</div>
+    </div>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="finish-bar">
+    <button class="btn btn-fern" id="finishBtn">🦥 Finish Lesson</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  function check(element, isCorrect) {
+    const choices = element.parentElement.querySelectorAll('.choice');
+    const feedback = element.parentElement.nextElementSibling;
+
+    if (isCorrect) {
+      choices.forEach(c => c.style.pointerEvents = 'none');
+      element.classList.add('correct');
+      feedback.textContent = "🎉 Nice work! That's it.";
+      feedback.className = 'feedback correct-text';
+      launchConfetti();
+    } else {
+      element.classList.add('incorrect');
+      feedback.textContent = '🍊 Not quite — try again!';
+      feedback.className = 'feedback incorrect-text';
+    }
+  }
+
+  function launchConfetti() {
+    const emojis = ['🍊', '🦥', '🌿', '✨'];
+    for (let i = 0; i < 18; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      piece.style.fontSize = (0.8 + Math.random() * 0.9) + 'rem';
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3600);
+    }
+  }
+
+  document.getElementById('finishBtn').addEventListener('click', () => {
+    try {
+      localStorage.setItem('lesson5', 'complete');
+    } catch (e) {
+      console.warn("Couldn't save progress in this browser:", e);
+    } finally {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

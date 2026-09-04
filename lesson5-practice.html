@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5: Extra Practice &ndash; Below Zero Number Line</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .value-display {
+    text-align:center; font-family: var(--font-display); font-size: 2.1rem; font-weight:700;
+    color: var(--fern-dark); margin: 6px 0 30px;
+  }
+  .nl-wrap { padding: 10px 24px 50px; }
+  .nl-track {
+    position: relative; height: 62px; background: var(--canopy-cream-2);
+    border-radius: 16px; border: 2px dashed var(--fern);
+  }
+  .nl-track.drag-over { background: #E4F3E3; }
+  .nl-baseline { position:absolute; top:50%; left:14px; right:14px; height:3px; background:var(--bark); transform: translateY(-50%); }
+  .nl-tick { position:absolute; top:50%; width:2px; height:14px; background:var(--bark); transform: translate(-1px, -50%); }
+  .nl-label { position:absolute; top:calc(50% + 12px); transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.72rem; color: var(--bark-soft); }
+  .nl-marker {
+    position:absolute; top: 50%; width: 34px; height: 34px; transform: translate(-50%, -50%);
+    display:flex; align-items:center; justify-content:center; font-size: 1.4rem; cursor:grab;
+  }
+  .tray { display:flex; justify-content:center; margin: 14px 0 8px; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="back-bar">
+    <a class="btn btn-outline btn-sm" href="index.html">&larr; Back to Dashboard</a>
+  </div>
+
+  <div class="quiz-header">
+    <span class="week-eyebrow">Week 5 &middot; Extra Practice</span>
+    <h1>📍 Below Zero Number Line</h1>
+  </div>
+
+  <div class="game-card" style="--accent:var(--fern);">
+    <div class="game-instructions">
+      Drag the 🦥 marker onto the number line at the target value. The line runs from &minus;10 to 10.
+      Then hit Check Answer.
+    </div>
+
+    <div class="value-display">Place: <span id="valueLabel">&minus;7</span></div>
+
+    <div class="tray">
+      <div class="nl-marker" id="marker" draggable="true">🦥</div>
+    </div>
+
+    <div class="nl-wrap">
+      <div class="nl-track" id="track" ondragover="allowDrop(event)" ondrop="dropMarker(event)">
+        <div class="nl-baseline"></div>
+        <div class="nl-tick" style="left:0%"></div><div class="nl-label" style="left:0%">-10</div>
+        <div class="nl-tick" style="left:25%"></div><div class="nl-label" style="left:25%">-5</div>
+        <div class="nl-tick" style="left:50%"></div><div class="nl-label" style="left:50%">0</div>
+        <div class="nl-tick" style="left:75%"></div><div class="nl-label" style="left:75%">5</div>
+        <div class="nl-tick" style="left:100%"></div><div class="nl-label" style="left:100%">10</div>
+      </div>
+    </div>
+
+    <div class="game-controls">
+      <button class="btn btn-fern" id="checkBtn">Check Answer</button>
+      <button class="btn btn-outline" id="newBtn">🔄 New Value</button>
+    </div>
+    <p class="game-feedback" id="feedback"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  const bank = [-7, 4, -3, 8, -10, 6, -1, 9, -5, 2];
+
+  let current = null;
+  let placedValue = null;
+  const track = document.getElementById('track');
+  const marker = document.getElementById('marker');
+  const tray = document.querySelector('.tray');
+
+  function newProblem() {
+    current = bank[Math.floor(Math.random() * bank.length)];
+    document.getElementById('valueLabel').textContent = current > 0 ? current : '\u2212' + Math.abs(current);
+    placedValue = null;
+
+    marker.style.position = 'static';
+    marker.style.left = '';
+    marker.style.top = '';
+    marker.style.transform = '';
+    tray.appendChild(marker);
+
+    document.getElementById('feedback').textContent = '';
+    track.style.borderColor = 'var(--fern)';
+  }
+
+  marker.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', 'marker');
+  });
+
+  function allowDrop(e) {
+    e.preventDefault();
+    track.classList.add('drag-over');
+  }
+
+  function dropMarker(e) {
+    e.preventDefault();
+    track.classList.remove('drag-over');
+    const rect = track.getBoundingClientRect();
+    let ratio = (e.clientX - rect.left - 14) / (rect.width - 28);
+    ratio = Math.max(0, Math.min(1, ratio));
+    placedValue = ratio * 20 - 10; // maps 0-1 to -10..10
+
+    marker.style.position = 'absolute';
+    marker.style.left = (ratio * 100) + '%';
+    marker.style.top = '50%';
+    marker.style.transform = 'translate(-50%, -50%)';
+    track.appendChild(marker);
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback');
+    if (placedValue === null) {
+      feedback.textContent = '🦥 Drag the marker onto the line first.';
+      feedback.style.color = 'var(--bark-soft)';
+      return;
+    }
+    const diff = Math.abs(placedValue - current);
+    if (diff <= 0.6) {
+      feedback.textContent = `🎉 Great placement! That's right around ${current}.`;
+      feedback.style.color = 'var(--fern-dark)';
+      track.style.borderColor = 'var(--fern)';
+    } else {
+      feedback.textContent = `🍊 Not quite — think about which tick marks ${current} falls between, then try again.`;
+      feedback.style.color = 'var(--burnt-clay-dark)';
+      track.style.borderColor = 'var(--burnt-clay)';
+    }
+  });
+
+  document.getElementById('newBtn').addEventListener('click', newProblem);
+
+  newProblem();
+</script>
+</body>
+</html>
